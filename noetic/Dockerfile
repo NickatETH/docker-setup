@@ -1,4 +1,6 @@
-FROM ros:noetic-robot
+FROM osrf/ros:noetic-desktop-full
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y && apt-get install -y wget git
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" \
