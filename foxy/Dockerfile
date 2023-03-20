@@ -13,8 +13,8 @@ RUN apt-get -y update; apt-get -y install wget
 # RUN wget https://github.com/mavlink/MAVSDK/releases/download/v0.50.1/mavsdk_0.50.1_ubuntu20.04_amd64.deb
 # RUN dpkg -i mavsdk_0.50.1_ubuntu20.04_amd64.deb
 
-RUN wget https://github.com/mavlink/MAVSDK/releases/download/v1.0.0/mavsdk_1.0.0_ubuntu20.04_amd64.deb
-RUN dpkg -i mavsdk_1.0.0_ubuntu20.04_amd64.deb
+RUN wget https://github.com/mavlink/MAVSDK/releases/download/v1.4.12/libmavsdk-dev_1.4.12_ubuntu20.04_amd64.deb
+RUN dpkg -i libmavsdk-dev_1.4.12_ubuntu20.04_amd64.deb
 
 
 RUN mkdir -p /raptor_ws/src 
@@ -30,17 +30,17 @@ WORKDIR /raptor_ws/src
 #     git tag v1.9.1
 
 WORKDIR /raptor_ws/src
+RUN echo "hello"
 RUN git clone https://github.com/raptor-ethz/raptor.git 
 
-RUN cd / && ./ros_entrypoint.sh && \
-    . /opt/ros/foxy/setup.sh && \
-    cd /raptor_ws/src/raptor && \
-    git checkout -b foxy origin/foxy && \
-    chmod 777 -R . && \
-    # colcon build --packages-select raptor_interface gripper_control quad_control vicon && \
-    # . ./install/setup.sh
-    colcon build --packages-select raptor_interface vicon && \
-    . ./install/setup.sh
+# RUN cd / && ./ros_entrypoint.sh && \
+#     . /opt/ros/foxy/setup.sh && \
+#     cd /raptor_ws/src/raptor && \
+#     git checkout -b foxy origin/foxy && \
+#     chmod 777 -R . && \
+#     colcon build --cmake-args \
+#     -DCMAKE_CXX_STANDARD=14 --packages-select raptor_interface gripper_control quad_control vicon && \
+#     . ./install/setup.sh
 
 # WORKDIR /raptor_ws/PX4-Autopilot
 # RUN HEADLESS=1 make px4_sitl gazebo_plane

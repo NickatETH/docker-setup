@@ -1,5 +1,18 @@
 FROM osrf/ros:noetic-desktop-full
 
+# Update all packages
+RUN apt update && apt upgrade -y
+
+# Install extra packages
+RUN apt install gdb -y
+RUN apt install git -y
+
+# Rosdep update
+RUN rosdep update
+
+# Source the ROS noetic setup file
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y && apt-get install -y wget git
@@ -31,6 +44,3 @@ RUN touch minkindr/minkindr_python/CATKIN_IGNORE
 RUN cd rpg_svo_pro_open/svo_online_loopclosing/vocabularies && ./download_voc.sh
 
 RUN catkin build
-
-
-
