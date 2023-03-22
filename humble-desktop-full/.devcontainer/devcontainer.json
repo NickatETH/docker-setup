@@ -1,0 +1,8 @@
+{
+  "dockerFile": "Dockerfile",
+  "runArgs": [
+    "--privileged",
+    "--network=host"
+  ],
+  "workspaceFolder": "/raptor_ws"
+}
