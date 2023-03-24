@@ -3,9 +3,9 @@ FROM osrf/ros:foxy-desktop
 RUN apt-get -y update; apt-get -y install wget
 
 # install MAVSDK
-RUN wget https://github.com/mavlink/MAVSDK/releases/download/v1.0.6/mavsdk_1.0.6_ubuntu20.04_amd64.deb
-RUN dpkg -i mavsdk_1.0.6_ubuntu20.04_amd64.deb
-RUN rm mavsdk_1.0.6_ubuntu20.04_amd64.deb
+RUN wget https://github.com/mavlink/MAVSDK/releases/download/v1.4.12/libmavsdk-dev_1.4.12_ubuntu20.04_amd64.deb
+RUN dpkg -i libmavsdk-dev_1.4.12_ubuntu20.04_amd64.deb
+RUN rm libmavsdk-dev_1.4.12_ubuntu20.04_amd64.deb
 
 RUN mkdir -p /raptor_ws/src 
 WORKDIR /raptor_ws/src
