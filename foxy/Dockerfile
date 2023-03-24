@@ -16,8 +16,9 @@ WORKDIR /raptor_ws/src/PX4-Autopilot
 RUN bash ./Tools/setup/ubuntu.sh && \
     apt install -y libopencv-dev
 
-RUN git checkout -b RAPTOR origin/RAPTOR && \
-    git tag v1.9.1
+RUN git checkout -b RAPTOR-foxy origin/RAPTOR-foxy && \
+    git tag v1.9.1 
+    # git submodule update --recursive --force --init --remote
 
 WORKDIR /raptor_ws/src
 RUN echo "hello"
