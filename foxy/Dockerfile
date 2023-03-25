@@ -31,20 +31,20 @@ RUN git checkout -b RAPTOR-foxy origin/RAPTOR-foxy && \
 WORKDIR /raptor_ws/src
 RUN echo "hello"
 RUN git clone https://github.com/raptor-ethz/raptor.git 
+RUN git clone -b foxy https://github.com/ros2/ros1_bridge.git
 
-WORKDIR /raptor_ws/src/raptor/src
-RUN git clone https://github.com/ros2/ros1_bridge.git && \
-    git checkout -b foxy
-
-RUN cd / && ./ros_entrypoint.sh && \
+WORKDIR /raptor_ws/src/raptor   
+RUN bash /ros_entrypoint.sh && \
     . /opt/ros/foxy/setup.sh && \
-    cd /raptor_ws/src/raptor && \
-    # git checkout -b foxy origin/foxy && \
-    chmod 777 -R . && \
     colcon build --cmake-args \
-    -DCMAKE_CXX_STANDARD=17 --packages-select raptor_interface gripper_control quad_control vicon --packages-skip ros1_bridge && \
-    . ./install/setup.sh && \
-    colcon build --symlink-install --packages-select ros1_bridge --cmake-force-configure
+    -DCMAKE_CXX_STANDARD=17 --packages-select raptor_interface gripper_control quad_control vicon
+
+WORKDIR /raptor_ws/src/ros1_bridge
+RUN . /opt/ros/foxy/setup.sh && \
+    . /opt/ros/noetic/setup.sh && \
+    colcon build --symlink-install --cmake-force-configure
+
+
 
 
 
