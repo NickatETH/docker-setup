@@ -24,14 +24,21 @@ WORKDIR /raptor_ws/src
 RUN echo "hello"
 RUN git clone https://github.com/raptor-ethz/raptor.git 
 
+WORKDIR /raptor_ws/src/raptor/src
+RUN git clone https://github.com/ros2/ros1_bridge.git && \
+    git checkout -b foxy
+
 RUN cd / && ./ros_entrypoint.sh && \
     . /opt/ros/foxy/setup.sh && \
     cd /raptor_ws/src/raptor && \
     # git checkout -b foxy origin/foxy && \
     chmod 777 -R . && \
     colcon build --cmake-args \
-    -DCMAKE_CXX_STANDARD=17 --packages-select raptor_interface gripper_control quad_control vicon && \
-    . ./install/setup.sh
+    -DCMAKE_CXX_STANDARD=17 --packages-select raptor_interface gripper_control quad_control vicon --packages-skip ros1_bridge && \
+    . ./install/setup.sh && \
+    colcon build --symlink-install --packages-select ros1_bridge --cmake-force-configure
+
+
 
 # WORKDIR /raptor_ws/PX4-Autopilot
 # RUN HEADLESS=1 make px4_sitl gazebo_plane
