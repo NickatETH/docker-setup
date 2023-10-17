@@ -1,7 +1,0 @@
-{
-  "dockerFile": "Dockerfile",
-  "runArgs": [
-    "--privileged",
-    "--network=host"
-  ]
-}
