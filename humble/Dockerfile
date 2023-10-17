@@ -2,20 +2,12 @@ FROM osrf/ros:humble-desktop
 
 RUN apt-get -y update; apt-get -y install wget
 
-# install MAVSDK
-RUN wget https://github.com/mavlink/MAVSDK/releases/download/v1.4.12/libmavsdk-dev_1.4.12_ubuntu20.04_amd64.deb
-RUN dpkg -i libmavsdk-dev_1.4.12_ubuntu20.04_amd64.deb 
-RUN rm libmavsdk-dev_1.4.12_ubuntu20.04_amd64.deb
 
 RUN mkdir /raptor_ws 
 WORKDIR /raptor_ws
 
-RUN git clone https://github.com/raptor-ethz/raptor.git && \
-    git clone https://github.com/raptor-ethz/PX4-Autopilot.git
+RUN git clone https://github.com/NOCTUA-ETHZ/MSD_Sys_ros 
 
-WORKDIR /raptor_ws/PX4-Autopilot
-RUN bash ./Tools/setup/ubuntu.sh && \
-    apt install -y libopencv-dev
 
 RUN git checkout -b RAPTOR origin/RAPTOR && \
     git tag v1.9.1
